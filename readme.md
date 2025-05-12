@@ -21,23 +21,23 @@ HookGuard identifies:
 
 ### 🧪 Week 1: MVP & Core Engine
 
-- [ ] CLI to scan a codebase: `hookguard scan ./src`
-- [ ] File discovery (`.ts`, `.tsx`, `.js`, `.jsx`)
-- [ ] AST parsing (using `ts-morph`)
-- [ ] Detection of:
+- [x] CLI to scan a codebase: `hookguard scan ./src`
+- [x] File discovery (`.ts`, `.tsx`, `.js`, `.jsx`)
+- [x] AST parsing (using `ts-morph`)
+- [x] Detection of:
   - `useEffect`, `useMemo`, `useCallback`
   - Custom hooks (`use*`)
-- [ ] Extraction of:
+- [x] Extraction of:
   - Hook name, dependencies, contents
   - Network calls (`fetch`, `axios`, etc.)
   - Global state updates
   - Cleanup function presence
-- [ ] Markdown and JSON report output
+- [x] JSON report output
 
 ### 🧠 Week 2–3: Rule Engine & Scoring System
 
-- [ ] Modular rule engine (Chain of Responsibility)
-- [ ] Detection rules:
+- [x] Modular rule engine (Chain of Responsibility)
+- [x] Detection rules:
   - Missing cleanup
   - Conditioned hook execution
   - Unsafe network call without cancellation
