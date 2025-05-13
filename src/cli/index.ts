@@ -7,8 +7,14 @@ import { HookInfo } from "../scanner/hookExtractor";
 import { summarizeReport } from "../report/summary";
 import { program } from "commander";
 import { version } from "./../../package.json";
+import { printHeader } from "../misc/hookWisdom";
 
-program.name("hookguard").version(version);
+program
+  .name("hookguard")
+  .description("Scan React files for unsafe or complex hook usage")
+  .version(version);
+
+printHeader(version);
 
 program
   .command("scan")

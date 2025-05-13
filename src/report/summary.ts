@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { RuleResult } from "../rules/Rule";
+import { printEasterEgg } from "../misc/easterEgg";
 
 interface HookReport {
   name: string;
@@ -103,6 +104,15 @@ function summarizeReport(filePath: string) {
     cleanFiles.sort().forEach((file) => {
       console.log(`- \`${file}\``);
     });
+  }
+
+  const totalScore = Array.from(summary.values()).reduce(
+    (acc, s) => acc + s.score,
+    0
+  );
+
+  if (markdownMode && totalScore === 0) {
+    printEasterEgg();
   }
 }
 
