@@ -9,8 +9,9 @@
   "scripts": {
     "dev": "npx ts-node ./src/cli/index.ts ",
     "dev-report": "npx ts-node ./src/report/summary.ts ",
-    "scan": "npm run build && hookguard scan ",
-    "report": "npm run build && hookguard report ",
+    "scan": "hookguard scan ",
+    "build": "tsc",
+    "report": "hookguard report ",
     "test": "test"
   },
   "author": "ackermannQ",
