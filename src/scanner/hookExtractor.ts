@@ -1,20 +1,58 @@
 import { Project, SyntaxKind } from "ts-morph";
 
-import { HookWithDependency } from "../rules/HookType";
+import { BuiltInHooks, HookWithDependency } from "../rules/HookType";
 
+/**
+ * Hook information extracted from a file
+ */
 export interface HookInfo {
+  /**
+   * Name of the hook
+   */
   name: string;
+
+  /**
+   * Type of the hook (builtin, custom, library)
+   */
   type: "builtin" | "custom" | "library";
+
+  /**
+   * Whether the hook has a cleanup function
+   */
   hasCleanup?: boolean;
+
+  /**
+   * List of dependencies
+   */
   dependencies?: string[];
+
+  /**
+   * Path to the file containing the hook
+   */
   filePath: string;
+  /**
+   * Body of the hook
+   */
   bodyText?: string;
+
+  /**
+   * List of network calls
+   */
   networkCalls?: string[]; // ["fetch", "axios"]
+
+  /**
+   * Whether the hook makes network calls with an abort controller
+   */
   abortPresent?: boolean; // found AbortController or .abort()
 }
 
 const importMap = new Map<string, string>();
 
+/**
+ * Extracts hooks from a file
+ * @param filePath Path to file to extract hooks from
+ * @returns List of hooks
+ */
 export function extractHooksFromFile(filePath: string): HookInfo[] {
   const project = new Project();
   const sourceFile = project.addSourceFileAtPath(filePath);
@@ -37,11 +75,9 @@ export function extractHooksFromFile(filePath: string): HookInfo[] {
 
       const isHook = /^use[A-Z]/.test(exprText);
       if (isHook) {
-        let type: "builtin" | "library" | "custom";
+        let type: HookInfo["type"];
 
-        if (
-          ["useEffect", "useState", "useMemo", "useCallback"].includes(exprText)
-        ) {
+        if (BuiltInHooks.includes(exprText)) {
           type = "builtin";
         } else if (importMap.has(exprText)) {
           type = "library";

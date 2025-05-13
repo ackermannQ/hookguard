@@ -1,5 +1,5 @@
-import { HookInfo } from "../scanner/hookExtractor";
-import { HookRule, RuleResult } from "./Rule";
+import { HookInfo } from "../../scanner/hookExtractor";
+import { HookRule, RuleResult } from "../Rule";
 
 /**
  * Detect useEffect hooks missing cleanup functions

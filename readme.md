@@ -42,7 +42,7 @@ HookGuard identifies:
   - Conditioned hook execution
   - Unsafe network call without cancellation
   - Excessive setState or context mutation
-- [ ] Risk scoring system per hook
+- [x] Risk scoring system per hook
 - [ ] Summary dashboard per file/component
 - [ ] Basic file-based caching of scan results (for performance)
 

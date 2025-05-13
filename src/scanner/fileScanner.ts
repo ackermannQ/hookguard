@@ -3,6 +3,12 @@ import path from "path";
 
 import { extractHooksFromFile, HookInfo } from "./hookExtractor";
 
+/**
+ * Scans a directory recursively for hooks
+ * @param dirPath Path to directory to scan
+ * @param results List of hooks to append results to
+ * @returns Scanner object
+ */
 export default function fileScanner() {
   function scanDirectory(dirPath: string, results: HookInfo[]) {
     const entries = fs.readdirSync(dirPath, { withFileTypes: true });
@@ -16,6 +22,7 @@ export default function fileScanner() {
           results.push(...hooks);
         } catch (e) {
           console.warn(`⚠️ Skipped ${fullPath} due to parse error.`);
+          console.warn(`Error: ${e}`);
         }
       }
     }

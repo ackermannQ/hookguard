@@ -1,9 +1,9 @@
 import { HookInfo } from "../scanner/hookExtractor";
-import { ContextMutationRule } from "./ContextMutationRule";
-import { ExcessiveDependenciesRule } from "./ExcessiveDependenciesRule";
-import { NoCleanupRule } from "./NoCleanupRule";
 import { HookRule, RuleResult } from "./Rule";
-import { UnsafeNetworkRule } from "./UnsafeNetworkRule";
+import { ContextMutationRule } from "./rulesDefinitions/ContextMutationRule";
+import { ExcessiveDependenciesRule } from "./rulesDefinitions/ExcessiveDependenciesRule";
+import { NoCleanupRule } from "./rulesDefinitions/NoCleanupRule";
+import { UnsafeNetworkRule } from "./rulesDefinitions/UnsafeNetworkRule";
 
 const rules: HookRule[] = [
   new NoCleanupRule(),
@@ -12,6 +12,10 @@ const rules: HookRule[] = [
   new ExcessiveDependenciesRule(),
 ];
 
+/**
+ * Evaluates all rules against a list of hooks
+ * @param hooks List of hooks to evaluate
+ */
 export function evaluateHooks(
   hooks: HookInfo[]
 ): (HookInfo & { issues: RuleResult[] })[] {
@@ -29,6 +33,11 @@ export function evaluateHooks(
   });
 }
 
+/**
+ * Computes a risk score based on the severity of issues
+ * @param issues List of issues to score
+ * @returns Risk score
+ */
 function computeRiskScore(issues: RuleResult[]): number {
   const weights = { info: 1, warning: 3, critical: 6 };
 

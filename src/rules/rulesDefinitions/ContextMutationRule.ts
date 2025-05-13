@@ -1,5 +1,6 @@
-import { HookInfo } from "../scanner/hookExtractor";
-import { HookRule, RuleResult } from "./Rule";
+import { HookInfo } from "../../scanner/hookExtractor";
+import { HookRule, RuleResult } from "../Rule";
+import { suspiciousSetStateCalls } from "../suspiciousSetStateCalls";
 
 /**
  * Detects state-setting calls that are likely modifying context values
@@ -16,13 +17,9 @@ export class ContextMutationRule implements HookRule {
   evaluate(hook: HookInfo): RuleResult | null {
     const bodyText = hook.bodyText || "";
 
-    const suspiciousCalls = [
-      "setUser",
-      "setAuth",
-      "setTheme",
-      "setContext",
-      "setState",
-    ].filter((fn) => bodyText.includes(`${fn}(`));
+    const suspiciousCalls = suspiciousSetStateCalls.filter((fn) =>
+      bodyText.includes(`${fn}(`)
+    );
 
     if (suspiciousCalls.length > 0) {
       return {

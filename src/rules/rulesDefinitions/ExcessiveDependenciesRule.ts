@@ -1,6 +1,6 @@
-import { HookInfo } from "../scanner/hookExtractor";
-import { HookWithDependency } from "./HookType";
-import { HookRule, RuleResult } from "./Rule";
+import { HookInfo } from "../../scanner/hookExtractor";
+import { HookWithDependency } from "../HookType";
+import { HookRule, RuleResult } from "../Rule";
 
 /**
  * Detect hooks with excessive dependencies
