@@ -8,7 +8,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx ts-node ./src/cli/index.ts ",
-    "scan": "npm run build && hookguard scan ./src",
+    "dev-report": "npx ts-node ./src/report/summary.ts ",
+    "scan": "npm run build && hookguard scan ",
+    "report": "npm run build && hookguard report ",
     "test": "test"
   },
   "author": "ackermannQ",
