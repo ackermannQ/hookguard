@@ -48,6 +48,7 @@ function summarizeReport(filePath: string) {
   }
 
   const markdownMode = process.env.HG_MARKDOWN === "1";
+  const cleanFiles: string[] = [];
 
   for (const [file, stats] of summary.entries()) {
     const header = markdownMode
@@ -61,6 +62,7 @@ function summarizeReport(filePath: string) {
         ? `   ✅ No issues found\n`
         : color(`   ✅ No issues found\n`, "\x1b[32m");
       console.log(cleanLine);
+      cleanFiles.push(file);
     } else {
       let line = `   🔢 Hooks: ${stats.hooks}     🔥 Score: ${stats.score}     `;
 
@@ -90,6 +92,17 @@ function summarizeReport(filePath: string) {
 
       console.log(markdownMode ? rulesLine : color(rulesLine, "\x1b[36m"));
     }
+  }
+
+  color(`🧼 Clean Hooks (No issues found)\n`, "\x1b[34m");
+  color(cleanFiles.sort().join("\n"), "\x1b[34m");
+  color;
+
+  if (markdownMode && cleanFiles.length > 0) {
+    console.log("\n## 🧼 Clean Hooks (No issues found)");
+    cleanFiles.sort().forEach((file) => {
+      console.log(`- \`${file}\``);
+    });
   }
 }
 

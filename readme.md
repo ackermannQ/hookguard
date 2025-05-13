@@ -108,9 +108,9 @@ Run `hookguard report <reportFile>` to print a summary of the scan results.
 ### 🔁 Week 4: CI / Git Integration
 
 - [x] GitHub Action: run HookGuard on PRs
-- [ ] PR comment with summary of risks
+- [x] PR comment with summary of risks
 - [ ] Risk diffing: new vs. resolved hook issues
-- [ ] Badge for "clean hooks"
+- [x] Badge for "clean hooks"
 - [ ] Config file support (`hookguard.config.ts`)
 
 > _(Optional backend/database integration to persist reports per branch or commit, store diffs and long-term analytics)_
