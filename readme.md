@@ -17,6 +17,52 @@ HookGuard identifies:
 
 ---
 
+## CI/CD Integration
+
+### GitHub Action
+
+Create a file named `.github/workflows/hookguard.yml` with the following contents:
+
+```yaml
+name: HookGuard Scan
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "**.ts"
+      - "**.tsx"
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          npm install
+
+      - name: Run HookGuard
+        run: |
+          npx hookguard scan ./src
+          npx hookguard report $(ls -t ./data/hookguard-log-*.json | head -n1)
+```
+
+## Usage
+
+Run `hookguard scan <directory>` to scan a directory recursively for hooks.
+
+Run `hookguard report <reportFile>` to print a summary of the scan results.
+
 ## 📅 Development Timeline
 
 ### 🧪 Week 1: MVP & Core Engine
@@ -47,7 +93,7 @@ HookGuard identifies:
 
 ### 🔁 Week 4: CI / Git Integration
 
-- [ ] GitHub Action: run HookGuard on PRs
+- [x] GitHub Action: run HookGuard on PRs
 - [ ] PR comment with summary of risks
 - [ ] Risk diffing: new vs. resolved hook issues
 - [ ] Badge for "clean hooks"
