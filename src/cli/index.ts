@@ -51,5 +51,5 @@ program
     diffReports(oldReportPath, newReportPath);
   });
 
-program.parse(process.argv);
 program.showHelpAfterError();
+program.parse(process.argv);
