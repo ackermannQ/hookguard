@@ -6,9 +6,11 @@ import fileScanner from "../scanner/fileScanner";
 import { HookInfo } from "../scanner/hookExtractor";
 import { summarizeReport } from "../report/summary";
 import { program } from "commander";
+import { version } from "./../../package.json";
+
+program.name("hookguard").version(version);
 
 program
-  .name("hookguard")
   .command("scan")
   .argument("<directory>")
   .description("Scan React files for unsafe or complex hook usage")
