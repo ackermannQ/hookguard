@@ -1,6 +1,6 @@
 {
   "name": "hookguard",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "bin": {
     "hookguard": "./dist/cli/index.js"
   },
@@ -17,6 +17,7 @@
   "author": "ackermannQ",
   "license": "MIT",
   "dependencies": {
+    "commander": "^13.1.0",
     "ts-morph": "^25.0.1"
   },
   "devDependencies": {

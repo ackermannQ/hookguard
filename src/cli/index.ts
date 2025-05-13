@@ -1,17 +1,15 @@
 #!/usr/bin/env node
-import { Command } from "commander";
 import fs from "fs";
 import path from "path";
 import { evaluateHooks } from "../rules/RuleEngine";
 import fileScanner from "../scanner/fileScanner";
 import { HookInfo } from "../scanner/hookExtractor";
 import { summarizeReport } from "../report/summary";
-
-const program = new Command();
+import { program } from "commander";
 
 program
   .name("hookguard")
-  .command("scan <directory path>")
+  .command("scan <directory>")
   .description("Scan React files for unsafe or complex hook usage")
   .action((directory: string) => {
     const rawHooks: HookInfo[] = [];
@@ -29,10 +27,11 @@ program
   });
 
 program
-  .command("report <reportFile path>")
+  .command("report <reportFile>")
   .description("Print summary from report file")
   .action((reportFile: string) => {
     summarizeReport(reportFile);
   });
 
 program.parse(process.argv);
+program.showHelpAfterError();

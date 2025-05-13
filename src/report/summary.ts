@@ -47,25 +47,48 @@ function summarizeReport(filePath: string) {
     summary.set(hook.filePath, stats);
   }
 
+  const markdownMode = process.env.HG_MARKDOWN === "1";
+
   for (const [file, stats] of summary.entries()) {
+    const header = markdownMode
+      ? `📁 \`${file}\``
+      : color(`📁 ${file}`, "\x1b[34m");
+
+    console.log(header);
+
     if (stats.score === 0) {
-      console.log(color(`📁 ${file}`, "\x1b[34m"));
-      console.log(color(`   ✅ No issues found\n`, "\x1b[32m"));
+      const cleanLine = markdownMode
+        ? `   ✅ No issues found\n`
+        : color(`   ✅ No issues found\n`, "\x1b[32m");
+      console.log(cleanLine);
     } else {
-      console.log(color(`📁 ${file}`, "\x1b[34m"));
       let line = `   🔢 Hooks: ${stats.hooks}     🔥 Score: ${stats.score}     `;
-      if (stats.critical)
-        line += color(`🛑 Critical: ${stats.critical}  `, "\x1b[31m");
-      if (stats.warning)
-        line += color(`⚠️  Warnings: ${stats.warning}  `, "\x1b[33m");
-      if (stats.info) line += color(`ℹ️  Info: ${stats.info}  `, "\x1b[90m");
+
+      if (stats.critical) {
+        line += markdownMode
+          ? `🛑 Critical: ${stats.critical}  `
+          : color(`🛑 Critical: ${stats.critical}  `, "\x1b[31m");
+      }
+
+      if (stats.warning) {
+        line += markdownMode
+          ? `⚠️  Warnings: ${stats.warning}  `
+          : color(`⚠️  Warnings: ${stats.warning}  `, "\x1b[33m");
+      }
+
+      if (stats.info) {
+        line += markdownMode
+          ? `ℹ️  Info: ${stats.info}  `
+          : color(`ℹ️  Info: ${stats.info}  `, "\x1b[90m");
+      }
+
       console.log(line);
-      console.log(
-        color(
-          `   🧩 Rules: [${Array.from(stats.rules).sort().join(", ")}]\n`,
-          "\x1b[36m"
-        )
-      ); // cyan
+
+      const rulesLine = `   🧩 Rules: [${Array.from(stats.rules)
+        .sort()
+        .join(", ")}]\n`;
+
+      console.log(markdownMode ? rulesLine : color(rulesLine, "\x1b[36m"));
     }
   }
 }
