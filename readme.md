@@ -43,8 +43,7 @@ HookGuard identifies:
   - Unsafe network call without cancellation
   - Excessive setState or context mutation
 - [x] Risk scoring system per hook
-- [ ] Summary dashboard per file/component
-- [ ] Basic file-based caching of scan results (for performance)
+- [x] Summary dashboard per file/component
 
 ### 🔁 Week 4: CI / Git Integration
 
