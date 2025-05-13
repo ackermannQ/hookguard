@@ -51,11 +51,25 @@ jobs:
           corepack enable
           npm install
 
-      - name: Run HookGuard
+      - name: HookGuard Scan
         run: |
           npx hookguard scan ./src
+
+      - name: HookGuard Report
+        run: |
           npx hookguard report $(ls -t ./data/hookguard-log-*.json | head -n1)
+
+      - name: Generate markdown summary
+        run: |
+          HG_MARKDOWN=1 npx hookguard report $(ls -t ./data/hookguard-log-*.json | head -n1) > hookguard-summary.md
+
+      - name: Comment markdown summary on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: hookguard-summary.md
 ```
+
+> If you don't want to comment on the PR you can remove the corresponding step.
 
 ## Usage
 
