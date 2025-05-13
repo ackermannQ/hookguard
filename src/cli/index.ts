@@ -9,7 +9,8 @@ import { program } from "commander";
 
 program
   .name("hookguard")
-  .command("scan <directory>")
+  .command("scan")
+  .argument("<directory>")
   .description("Scan React files for unsafe or complex hook usage")
   .action((directory: string) => {
     const rawHooks: HookInfo[] = [];
@@ -27,7 +28,8 @@ program
   });
 
 program
-  .command("report <reportFile>")
+  .command("report")
+  .argument("<reportFile>")
   .description("Print summary from report file")
   .action((reportFile: string) => {
     summarizeReport(reportFile);

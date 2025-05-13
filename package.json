@@ -1,14 +1,14 @@
 {
   "name": "hookguard",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": {
     "hookguard": "./dist/cli/index.js"
   },
   "description": "HookGuard is a powerful developer tool designed to detect unsafe, complex, or undocumented behaviors in React hooks — both built-in and custom. It helps teams maintain scalable, clean, and predictable component logic by uncovering patterns that often lead to bugs, performance issues, or architectural rot.",
   "main": "index.js",
   "scripts": {
-    "dev": "npx ts-node ./src/cli/index.ts ",
-    "dev-report": "npx ts-node ./src/report/summary.ts ",
+    "dev": "npx ts-node ./src/cli/index.ts scan ",
+    "dev-report": "npx ts-node ./src/cli/index.ts report ",
     "scan": "hookguard scan ",
     "build": "tsc",
     "report": "hookguard report ",
