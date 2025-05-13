@@ -8,6 +8,7 @@ import { summarizeReport } from "../report/summary";
 import { program } from "commander";
 import { version } from "./../../package.json";
 import { printHeader } from "../misc/hookWisdom";
+import diffReports from "../diff";
 
 program
   .name("hookguard")
@@ -41,6 +42,13 @@ program
   .description("Print summary from report file")
   .action((reportFile: string) => {
     summarizeReport(reportFile);
+  });
+
+program
+  .command("diff <oldReportPath> <newReportPath>")
+  .description("Compare two HookGuard reports and show new/resolved issues")
+  .action((oldReportPath: string, newReportPath: string) => {
+    diffReports(oldReportPath, newReportPath);
   });
 
 program.parse(process.argv);

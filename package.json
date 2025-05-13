@@ -10,9 +10,11 @@
     "prepublishOnly": "npm run build",
     "dev": "npx ts-node ./src/cli/index.ts scan ",
     "dev-report": "npx ts-node ./src/cli/index.ts report ",
+    "dev-diff": "npx ts-node ./src/cli/index.ts diff ",
     "scan": "hookguard scan ",
-    "build": "tsc",
     "report": "hookguard report ",
+    "diff": "hookguard diff ",
+    "build": "tsc",
     "test": "test"
   },
   "author": "ackermannQ",
