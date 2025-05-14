@@ -100,6 +100,38 @@ Run `hookguard scan <directory>` to scan a directory recursively for hooks.
 
 Run `hookguard report <reportFile>` to print a summary of the scan results.
 
+⚙️ Configuration – hookguard.config.ts
+
+You can customize HookGuard's behavior by creating a `hookguard.config.ts` file in the root of your project.
+
+This configuration file allows you to:
+
+- Enable or disable specific rules
+- Set thresholds to fail CI on certain risk conditions
+- Define custom suspicious calls to track (e.g. setSession, setGlobalState)
+
+🧪 Example
+
+```ts
+// hookguard.config.ts
+import { defineHookGuardConfig } from "hookguard";
+
+export default defineHookGuardConfig({
+  rules: {
+    "no-cleanup": true,
+    "unsafe-network": true,
+    "excessive-deps": false, // disables this rule
+  },
+  thresholds: {
+    failOnScore: 15, // fails the scan if score > 15
+    failOnCritical: true, // fails the scan if any critical issue exists
+  },
+  suspiciousCalls: ["setSession", "setGlobalState"],
+});
+```
+
+> If the file is missing or invalid, HookGuard will fall back to default configuration.
+
 ## 📅 Development Timeline
 
 ### 🧪 Week 1: MVP & Core Engine
@@ -132,9 +164,9 @@ Run `hookguard report <reportFile>` to print a summary of the scan results.
 
 - [x] GitHub Action: run HookGuard on PRs
 - [x] PR comment with summary of risks
-- [ ] Risk diffing: new vs. resolved hook issues
+- [x] Risk diffing: new vs. resolved hook issues
 - [x] Badge for "clean hooks"
-- [ ] Config file support (`hookguard.config.ts`)
+- [x] Config file support (`hookguard.config.ts`)
 
 > _(Optional backend/database integration to persist reports per branch or commit, store diffs and long-term analytics)_
 

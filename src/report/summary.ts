@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { RuleResult } from "../rules/Rule";
 import { printEasterEgg } from "../misc/easterEgg";
+import { loadConfig } from "../config/loadConfig";
 
 interface HookReport {
   name: string;
@@ -46,6 +47,20 @@ function summarizeReport(filePath: string) {
       cleanFiles.push(file);
     } else {
       displayHookWithIssues(stats, markdownMode);
+    }
+
+    const config = loadConfig();
+    if (config?.thresholds?.failOnCritical && stats.critical > 0) {
+      console.error("Threshold reached: Critical issues found");
+      process.exit(1);
+    }
+
+    if (
+      config?.thresholds?.failOnScore &&
+      stats.score > config.thresholds.failOnScore
+    ) {
+      console.error("Threshold reached: Score exceeded");
+      process.exit(1);
     }
   }
 

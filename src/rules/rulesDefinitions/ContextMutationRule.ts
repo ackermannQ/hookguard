@@ -1,6 +1,7 @@
+import { loadConfig } from "../../config/loadConfig";
 import { HookInfo } from "../../scanner/hookExtractor";
 import { HookRule, RuleResult } from "../Rule";
-import { suspiciousSetStateCalls } from "../suspiciousSetStateCalls";
+import { suspiciousSetStateCalls as defaultSuspiciousSetStateCalls } from "../suspiciousSetStateCalls";
 
 /**
  * Detects state-setting calls that are likely modifying context values
@@ -17,7 +18,12 @@ export class ContextMutationRule implements HookRule {
   evaluate(hook: HookInfo): RuleResult | null {
     const bodyText = hook.bodyText || "";
 
-    const suspiciousCalls = suspiciousSetStateCalls.filter((fn) =>
+    const config = loadConfig();
+    const susCalls =
+      config?.suspiciousCalls && config.suspiciousCalls.length > 0
+        ? [config.suspiciousCalls, ...defaultSuspiciousSetStateCalls]
+        : defaultSuspiciousSetStateCalls;
+    const suspiciousCalls = susCalls.filter((fn) =>
       bodyText.includes(`${fn}(`)
     );
 

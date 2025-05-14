@@ -1,3 +1,4 @@
+import { loadConfig } from "../config/loadConfig";
 import { HookInfo } from "../scanner/hookExtractor";
 import { HookRule, RuleResult } from "./Rule";
 import { ContextMutationRule } from "./rulesDefinitions/ContextMutationRule";
@@ -19,8 +20,10 @@ const rules: HookRule[] = [
 export function evaluateHooks(
   hooks: HookInfo[]
 ): (HookInfo & { issues: RuleResult[] })[] {
+  const config = loadConfig();
+  const enabledRules = rules.filter((rule) => config.rules[rule.id] === true);
   return hooks.map((hook) => {
-    const issues = rules
+    const issues = enabledRules
       .filter((rule) => rule.appliesTo(hook))
       .map((rule) => rule.evaluate(hook))
       .filter((result): result is RuleResult => result !== null);
