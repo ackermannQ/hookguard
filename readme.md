@@ -9,11 +9,11 @@ HookGuard is a powerful developer tool designed to detect unsafe, complex, or un
 **Goal:** Provide visibility and control over the complexity of React components and hooks.  
 HookGuard identifies:
 
-- Hooks with uncleaned side effects
-- Repeated, nested, or coupled network calls
-- Shared logic with hidden state dependencies
-- Custom hooks doing more than advertised
-- Inconsistent or conditional hook usage
+- Hooks with uncleaned side effects ✅
+- Repeated, nested, or coupled network ✅
+- Shared logic with hidden state dependencies ⚙️
+- Custom hooks doing more than advertised ⚙️
+- Inconsistent or conditional hook usage ⚙️
 
 ---
 

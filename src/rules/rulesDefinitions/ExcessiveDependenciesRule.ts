@@ -21,6 +21,11 @@ export class ExcessiveDependenciesRule implements HookRule {
         ruleId: this.id,
         level: "info",
         message: `Hook has ${hook?.dependencies?.length} dependencies — consider simplifying`,
+        suggestions: [
+          "This hook has too many dependencies, which may indicate overly complex logic.",
+          "Consider splitting this effect or callback into smaller parts with clearer responsibilities.",
+          "Reducing the dependency count can improve readability and avoid unnecessary re-executions.",
+        ],
       };
     }
     return null;

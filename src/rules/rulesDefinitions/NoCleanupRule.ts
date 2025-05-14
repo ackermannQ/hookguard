@@ -18,6 +18,10 @@ export class NoCleanupRule implements HookRule {
         ruleId: this.id,
         level: "warning",
         message: "useEffect is missing a cleanup function",
+        suggestions: [
+          "Return a cleanup function from your effect to prevent memory leaks or stale side effects.",
+          "If you're using timers, event listeners, or subscriptions, make sure to clean them up when the component unmounts.",
+        ],
       };
     }
     return null;

@@ -4,6 +4,7 @@ export interface RuleResult {
   level: "info" | "warning" | "critical";
   message: string;
   ruleId: string;
+  suggestions: string[];
 }
 
 /**

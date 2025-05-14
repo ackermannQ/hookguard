@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
-import { RuleResult } from "../rules/Rule";
-import { printEasterEgg } from "../misc/easterEgg";
+
 import { loadConfig } from "../config/loadConfig";
+import { printEasterEgg } from "../misc/easterEgg";
+import { RuleResult } from "../rules/Rule";
 
 interface HookReport {
   name: string;
@@ -17,6 +18,7 @@ type SummaryStats = {
   info: number;
   warning: number;
   critical: number;
+  suggestions: string[];
   rules: Set<string>;
 };
 
@@ -97,6 +99,7 @@ function buildSummarySet(
       info: 0,
       warning: 0,
       critical: 0,
+      suggestions: [],
       rules: new Set<string>(),
     };
 
@@ -106,6 +109,8 @@ function buildSummarySet(
     for (const issue of hook.issues) {
       stats[issue.level] += 1;
       stats.rules.add(issue.ruleId);
+
+      stats.suggestions.push(...issue.suggestions);
     }
 
     summary.set(hook.filePath, stats);
@@ -140,6 +145,17 @@ function displayHookWithIssues(stats: SummaryStats, markdownMode: boolean) {
     .join(", ")}]\n`;
 
   console.log(markdownMode ? rulesLine : color(rulesLine, "\x1b[36m"));
+
+  if (stats.rules.size > 0) {
+    console.log("   💡 Suggestions:");
+    stats.suggestions.forEach((suggestion) => {
+      console.log(
+        markdownMode
+          ? `   - ${suggestion}`
+          : color(`   - ${suggestion}`, "\x1b[35m")
+      );
+    });
+  }
 }
 
 function color(text: string, colorCode: string) {

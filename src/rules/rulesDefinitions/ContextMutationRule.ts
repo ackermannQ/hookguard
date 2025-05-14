@@ -32,6 +32,11 @@ export class ContextMutationRule implements HookRule {
         ruleId: this.id,
         level: "warning",
         message: `Potential context mutation via ${suspiciousCalls.join(", ")}`,
+        suggestions: [
+          "Consider using a context provider or a custom hook to manage context values.",
+          "If you're using a context provider, make sure to update the context value only in controlled components.",
+          "If you're using a custom hook, make sure to update the hook value only in controlled components.",
+        ],
       };
     }
 
