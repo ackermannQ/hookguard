@@ -10,7 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "declarationDir": "./dist",
-    "outDir": "dist"
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
   "include": ["src"],
   "exclude": ["dist", "src/tests"]
