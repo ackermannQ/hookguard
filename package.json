@@ -1,6 +1,6 @@
 {
   "name": "hookguard",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "bin": {
     "hookguard": "./dist/src/cli/index.js"
   },
