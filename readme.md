@@ -17,9 +17,9 @@ HookGuard identifies:
 
 ---
 
-## CI/CD Integration
+## 🛠️ CI/CD Integration
 
-### GitHub Action
+### 🤖 GitHub Action
 
 Create a file named `.github/workflows/hookguard.yml` with the following contents:
 
@@ -94,13 +94,13 @@ jobs:
 
 > If you don't want to comment on the PR you can remove the corresponding step.
 
-## Usage
+## 🚀 Usage
 
 Run `hookguard scan <directory>` to scan a directory recursively for hooks.
 
 Run `hookguard report <reportFile>` to print a summary of the scan results.
 
-⚙️ Configuration – hookguard.config.ts
+## 🎛️ Configuration – hookguard.config.ts
 
 You can customize HookGuard's behavior by creating a `hookguard.config.ts` file in the root of your project.
 
