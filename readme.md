@@ -24,7 +24,7 @@ HookGuard identifies:
 Create a file named `.github/workflows/hookguard.yml` with the following contents:
 
 ```yaml
-name: HookGuard Scan
+name: HookGuard Routine
 
 on:
   pull_request:
@@ -40,6 +40,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v3
@@ -50,23 +52,44 @@ jobs:
         run: |
           corepack enable
           npm install
+          npm run build
 
-      - name: HookGuard Scan
+      - name: Generate report from master
+        run: |
+          git fetch origin master
+          git reset --hard  # ← supprime les fichiers modifiés
+          git switch -c master-snapshot FETCH_HEAD
+          npx hookguard scan ./src
+          mv $(ls -t ./data/hookguard-log-*.json | head -n1) ./data/hookguard-master.json
+
+      - name: Restore PR branch
+        run: |
+          git checkout ${{ github.head_ref }}
+
+      - name: HookGuard Scan on PR
         run: |
           npx hookguard scan ./src
+          mv $(ls -t ./data/hookguard-log-*.json | head -n1) ./data/hookguard-pr.json
 
-      - name: HookGuard Report
+      - name: Generate HookGuard summary (Markdown)
         run: |
-          npx hookguard report $(ls -t ./data/hookguard-log-*.json | head -n1)
+          HG_MARKDOWN=1 npx hookguard report ./data/hookguard-pr.json > hookguard-summary.md
 
-      - name: Generate markdown summary
-        run: |
-          HG_MARKDOWN=1 npx hookguard report $(ls -t ./data/hookguard-log-*.json | head -n1) > hookguard-summary.md
-
-      - name: Comment markdown summary on PR
+      - name: Comment HookGuard summary on PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           path: hookguard-summary.md
+          header: hookguard-summary
+
+      - name: Generate HookGuard diff
+        run: |
+          npx hookguard diff ./data/hookguard-master.json ./data/hookguard-pr.json > hookguard-diff.md
+
+      - name: Comment HookGuard diff on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: hookguard-diff.md
+          header: hookguard-diff
 ```
 
 > If you don't want to comment on the PR you can remove the corresponding step.
