@@ -29,3 +29,5 @@ export default function fileScanner() {
   }
   return { scanDirectory };
 }
+
+export { fileScanner };

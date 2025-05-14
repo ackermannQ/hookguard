@@ -41,7 +41,7 @@ export function evaluateHooks(
  * @param issues List of issues to score
  * @returns Risk score
  */
-function computeRiskScore(issues: RuleResult[]): number {
+export function computeRiskScore(issues: RuleResult[]): number {
   const weights = { info: 1, warning: 3, critical: 6 };
 
   if (issues.length === 0) return 0;

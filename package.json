@@ -4,6 +4,7 @@
   "bin": {
     "hookguard": "./dist/src/cli/index.js"
   },
+  "types": "./lib/main.d.ts",
   "files": [
     "dist",
     "package.json",
