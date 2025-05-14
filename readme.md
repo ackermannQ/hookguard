@@ -247,5 +247,5 @@ MIT
 
 ---
 
-**Created by**: quack
+**Created by**: quack  
 **Purpose**: Reveal what’s hidden in React logic — before it hurts you in production.
