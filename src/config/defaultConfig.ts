@@ -14,10 +14,38 @@ export const defaultConfig: HookGuardConfig = {
     "no-cleanup": true,
     "unsafe-network": true,
     "excessive-dependencies": true,
+    "missing-dependency": true,
   },
   thresholds: {
     failOnScore: undefined,
     failOnCritical: false,
   },
-  suspiciousCalls: [],
+  suspiciousCalls: [
+    // generics
+    "setState",
+    "setValue",
+    "setData",
+    "setContext",
+
+    // frequently used
+    "setUser",
+    "setAuth",
+    "setSession",
+    "setTheme",
+    "setLocale",
+    "setLanguage",
+    "setSettings",
+    "setConfig",
+    "setPermissions",
+    "setProfile",
+
+    // redux/zustand/atoms
+    "dispatch",
+    "updateStore",
+    "setAtom",
+    "useSetRecoilState",
+    "useStore.setState",
+    "store.setState",
+    "setGlobalState",
+  ],
 };

@@ -3,6 +3,7 @@ import { HookInfo } from "../scanner/hookExtractor";
 import { HookRule, RuleResult } from "./Rule";
 import { ContextMutationRule } from "./rulesDefinitions/ContextMutationRule";
 import { ExcessiveDependenciesRule } from "./rulesDefinitions/ExcessiveDependenciesRule";
+import { MissingDependencyRule } from "./rulesDefinitions/MissingDependencyRule";
 import { NoCleanupRule } from "./rulesDefinitions/NoCleanupRule";
 import { UnsafeNetworkRule } from "./rulesDefinitions/UnsafeNetworkRule";
 
@@ -11,6 +12,7 @@ const rules: HookRule[] = [
   new UnsafeNetworkRule(),
   new ContextMutationRule(),
   new ExcessiveDependenciesRule(),
+  new MissingDependencyRule(),
 ];
 
 /**
