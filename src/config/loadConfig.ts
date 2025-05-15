@@ -1,13 +1,14 @@
-import { HookGuardConfig, defaultConfig } from "./defaultConfig";
-import path from "path";
 import fs from "fs";
+import path from "path";
+
+import { defaultConfig, HookGuardConfig } from "./defaultConfig";
 
 export function loadConfig(): HookGuardConfig {
   const configPath = path.resolve("hookguard.config.ts");
 
-  if (fs.existsSync(configPath)) {
+  if (fs.existsSync(path.resolve(configPath))) {
     try {
-      const config = require(configPath).default;
+      const config = require(configPath).config;
       return {
         ...defaultConfig,
         ...config,

@@ -1,7 +1,10 @@
+import { HookRule } from "../rules/Rule";
+
 export interface HookGuardConfig {
   rules: Record<string, boolean>;
   thresholds?: ThresholdConfig;
   suspiciousCalls?: string[];
+  customRules?: Record<string, HookRule>;
 }
 
 type ThresholdConfig = {
@@ -10,11 +13,13 @@ type ThresholdConfig = {
 };
 
 export const defaultConfig: HookGuardConfig = {
+  customRules: {},
   rules: {
     "no-cleanup": true,
     "unsafe-network": true,
     "excessive-dependencies": true,
     "missing-dependency": true,
+    "async-effect": true,
   },
   thresholds: {
     failOnScore: undefined,

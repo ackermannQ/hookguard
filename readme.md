@@ -114,23 +114,61 @@ This configuration file allows you to:
 
 ```ts
 // hookguard.config.ts
-import { defineHookGuardConfig } from "hookguard";
+import { HookRule, RuleResult } from "./src/rules/Rule";
+import { HookInfo } from "./src/scanner/hookExtractor";
+import { HookGuardConfig } from "./src/config/defaultConfig";
 
-export default defineHookGuardConfig({
+/**
+ * Fake rule for demonstration purposes
+ */
+export class FakeRule implements HookRule {
+  id = "fake-rule";
+  description = "It's a fake rule for demonstration purposes";
+
+  appliesTo(hook: HookInfo): boolean {
+    return hook.name === "useEffect";
+  }
+
+  evaluate(hook: HookInfo): RuleResult | null {
+    return {
+      ruleId: this.id,
+      level: "info",
+      message: "It's a useEffect hook!",
+      suggestions: [
+        "Write here some suggestions for ensuring the rules is respected",
+      ],
+    };
+  }
+}
+
+export const config: HookGuardConfig = {
+  customRules: { "fake-rule": new FakeRule() },
   rules: {
     "no-cleanup": true,
     "unsafe-network": true,
-    "excessive-deps": false, // disables this rule
+    "excessive-dependencies": true,
+    "missing-dependency": false,
+    "async-effect": false,
+    "fake-rule": true,
   },
   thresholds: {
-    failOnScore: 15, // fails the scan if score > 15
-    failOnCritical: true, // fails the scan if any critical issue exists
+    failOnScore: undefined,
+    failOnCritical: false,
   },
-  suspiciousCalls: ["setSession", "setGlobalState"],
-});
+  suspiciousCalls: [
+    "setUser",
+    "setAuth",
+    "setSession",
+    "setTheme",
+    "setLocale",
+    "setLanguage",
+    "setSettings",
+  ],
+};
 ```
 
 > If the file is missing or invalid, HookGuard will fall back to default configuration.
+> You can create your own set of rules by creating new classes that implement the `HookRule` interface. Don't forget to add them to the `customRules` and `rules` objects in the configuration file.
 
 ## 📅 Development Timeline
 

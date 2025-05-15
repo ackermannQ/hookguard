@@ -7,7 +7,10 @@ import { MissingDependencyRule } from "./rulesDefinitions/MissingDependencyRule"
 import { NoCleanupRule } from "./rulesDefinitions/NoCleanupRule";
 import { UnsafeNetworkRule } from "./rulesDefinitions/UnsafeNetworkRule";
 
+const config = loadConfig();
+
 const rules: HookRule[] = [
+  ...(config.customRules ? Object.values(config.customRules) : []),
   new NoCleanupRule(),
   new UnsafeNetworkRule(),
   new ContextMutationRule(),
@@ -22,8 +25,9 @@ const rules: HookRule[] = [
 export function evaluateHooks(
   hooks: HookInfo[]
 ): (HookInfo & { issues: RuleResult[] })[] {
-  const config = loadConfig();
-  const enabledRules = rules.filter((rule) => config.rules[rule.id] === true);
+  const enabledRules = rules.filter(
+    (rule) => config?.rules?.[rule?.id] === true
+  );
   return hooks.map((hook) => {
     const issues = enabledRules
       .filter((rule) => rule.appliesTo(hook))
