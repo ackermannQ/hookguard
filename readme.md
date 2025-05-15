@@ -2,7 +2,7 @@
 
 HookGuard is a powerful developer tool designed to detect unsafe, complex, or undocumented behaviors in React hooks — both built-in and custom. It helps teams maintain scalable, clean, and predictable component logic by uncovering patterns that often lead to bugs, performance issues, or architectural rot.
 
----
+You can learn more about HookGuard in this [blog post](https://www.kodereview.com/hookguard/).
 
 ## 🚀 Project Objective
 
@@ -172,7 +172,7 @@ export const config: HookGuardConfig = {
 
 ## 📅 Development Timeline
 
-### 🧪 Week 1: MVP & Core Engine
+### 🧪 Day 1: MVP & Core Engine
 
 - [x] CLI to scan a codebase: `hookguard scan ./src`
 - [x] File discovery (`.ts`, `.tsx`, `.js`, `.jsx`)
@@ -187,7 +187,7 @@ export const config: HookGuardConfig = {
   - Cleanup function presence
 - [x] JSON report output
 
-### 🧠 Week 2–3: Rule Engine & Scoring System
+### 🧠 Day 2–3: Rule Engine & Scoring System
 
 - [x] Modular rule engine (Chain of Responsibility)
 - [x] Detection rules:
@@ -198,7 +198,7 @@ export const config: HookGuardConfig = {
 - [x] Risk scoring system per hook
 - [x] Summary dashboard per file/component
 
-### 🔁 Week 4: CI / Git Integration
+### 🔁 Day 4: CI / Git Integration
 
 - [x] GitHub Action: run HookGuard on PRs
 - [x] PR comment with summary of risks
@@ -208,42 +208,36 @@ export const config: HookGuardConfig = {
 
 > _(Optional backend/database integration to persist reports per branch or commit, store diffs and long-term analytics)_
 
-### 🖼️ Week 5–6: UI & Visualization Layer
+### 💡 Week 2: IntelliSense & On-the-fly Detection
+
+- [ ] VS Code extension (or Language Server) to:
+  - Highlight risky hook usage as you type
+  - Auto-suggest cleanup patterns
+  - Provide tooltip summaries for custom hooks
+- [ ] Panel to display all faulty hooks in the project
+
+> _(Requires bundling a local lightweight engine or pre-built ruleset into the extension)_
+
+### 🖼️ Week 3: UI & Visualization Layer
 
 - [ ] React web UI for browsing reports
 - [ ] Hook graph: links between components and state
 - [ ] Filtering by severity, module, team
 - [ ] Export to Notion/Markdown/CSV
 - [ ] Caching layer (Redis or local FS-based) for fast reloads and diff views
+- [ ] Self-hosted UI dashboard (Docker-ready)
 
 > _(Requires lightweight backend API to serve cache and persistent report data)_
 
-### 💡 Week 7–8: IntelliSense & On-the-fly Detection
-
-- [ ] VS Code extension (or Language Server) to:
-  - Highlight risky hook usage as you type
-  - Auto-suggest cleanup patterns
-  - Provide tooltip summaries for custom hooks
-- [ ] Optional integration with ESLint for live feedback
-
-> _(Requires bundling a local lightweight engine or pre-built ruleset into the extension)_
-
-### 📊 Week 9–10: Insights & Intelligence
+### 📊 Week 4: Insights & Intelligence
 
 - [ ] Time-based tracking of risk accumulation
 - [ ] Suggested refactor targets (e.g. extract effect)
 - [ ] Historical snapshots per branch or tag
 - [ ] Visualization of "hot files"
+- [ ] LLM-assisted refactoring suggestion
 
 > _(Requires lightweight database or file-backed store for snapshots)_
-
-### 🌐 Week 11–12: Framework Extension & Custom Rules
-
-- [ ] Support for Vue 3 `setup()` + Composition API
-- [ ] Plugin system for custom rules
-- [ ] LLM-assisted refactoring suggestion
-- [ ] Community rule library
-- [ ] Self-hosted UI dashboard (Docker-ready)
 
 ---
 
@@ -253,7 +247,7 @@ export const config: HookGuardConfig = {
 - **Scanner**: File system + AST parser
 - **HookNode**: Internal model (hook metadata + diagnostics)
 - **Rule Engine**: Modular rule executor
-- **Report Formatter**: Markdown/JSON builders
+- **Report Formatter**: JSON builders
 - **UI Frontend**: Report visualizer (optional)
 - **Cache**: File-based or Redis-backed for fast repeated analysis
 - **Extension SDK**: For LSP or IDE plugins
