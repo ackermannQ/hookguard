@@ -13,6 +13,6 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
-  "include": ["src"],
+  "include": ["src", "hookguard.config.ts"],
   "exclude": ["dist", "src/tests"]
 }

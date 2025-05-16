@@ -11,7 +11,7 @@
     "README.md"
   ],
   "description": "HookGuard is a powerful developer tool designed to detect unsafe, complex, or undocumented behaviors in React hooks — both built-in and custom. It helps teams maintain scalable, clean, and predictable component logic by uncovering patterns that often lead to bugs, performance issues, or architectural rot.",
-  "main": "index.js",
+  "main": "./dist/src/index.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "dev": "npx ts-node ./src/cli/index.ts scan ",

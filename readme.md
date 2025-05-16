@@ -4,6 +4,8 @@ HookGuard is a powerful developer tool designed to detect unsafe, complex, or un
 
 You can learn more about HookGuard in this [blog post](https://www.kodereview.com/hookguard/).
 
+![HookGuard](image.png)
+
 ## 🚀 Project Objective
 
 **Goal:** Provide visibility and control over the complexity of React components and hooks.  
