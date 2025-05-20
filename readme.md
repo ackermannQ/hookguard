@@ -172,6 +172,36 @@ export const config: HookGuardConfig = {
 > If the file is missing or invalid, HookGuard will fall back to default configuration.
 > You can create your own set of rules by creating new classes that implement the `HookRule` interface. Don't forget to add them to the `customRules` and `rules` objects in the configuration file.
 
+## Rules Details
+
+## 🧠 Rule: `missing-dependency`
+
+Detects when variables used inside the callback of a React hook (`useEffect`, `useCallback`, `useMemo`, etc.) are **missing from the dependency array**.
+
+### ✅ Example
+
+```tsx
+useEffect(() => {
+  fetchData(query);
+  console.log(user.name);
+}, []);
+```
+
+➡️ Will raise:  
+`Missing dependencies: query, user`
+
+---
+
+> **Known global objects** (e.g. `console`, `Promise`, `Math`, `setTimeout`, etc.) are ignored.
+
+---
+
+### 🧱 Global Identifier Filtering
+
+To avoid false positives, HookGuard uses a built-in `IGNORED_GLOBALS` set — a comprehensive list of browser and Node.js globals (e.g. `window`, `Promise`, `JSON`, etc.).
+
+You can see it in [`src/utils/globals.ts`](.\src\rules\rulesDefinitions\missingDependency\globals.ts).
+
 ## 📅 Development Timeline
 
 ### 🧪 Day 1: MVP & Core Engine

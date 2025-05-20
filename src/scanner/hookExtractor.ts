@@ -36,6 +36,11 @@ export interface HookInfo {
   bodyText?: string;
 
   /**
+   * Full text of the hook
+   */
+  fullText?: string;
+
+  /**
    * List of network calls
    */
   networkCalls?: string[]; // ["fetch", "axios"]
@@ -91,6 +96,17 @@ export function extractHooksFromFile(filePath: string): HookInfo[] {
           filePath,
         };
 
+        if (exprText === "useMemo" || exprText === "useCallback") {
+          const arg = expr.getArguments()[0];
+          if (arg && arg.getKind() === SyntaxKind.ArrowFunction) {
+            const body = arg.getLastChildByKind(SyntaxKind.Block);
+
+            if (body) {
+              hook.fullText = body.getFullText();
+            }
+          }
+        }
+
         // useEffect specific logic
         if (exprText === "useEffect") {
           const arg = expr.getArguments()[0];
@@ -106,6 +122,7 @@ export function extractHooksFromFile(filePath: string): HookInfo[] {
             // Check for network calls
             if (body) {
               hook.bodyText = body.getText();
+              hook.fullText = node.getText();
               const calls = body.getDescendantsOfKind(
                 SyntaxKind.CallExpression
               );
