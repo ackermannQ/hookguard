@@ -4,7 +4,8 @@ import path from "path";
 import { defaultConfig, HookGuardConfig } from "./defaultConfig";
 
 export function loadConfig(): HookGuardConfig {
-  const configPath = path.resolve("./src/hookguard.config.ts");
+  let configPath = path.resolve(process.cwd());
+  configPath += "/src/hookguard.config.ts";
 
   if (fs.existsSync(path.resolve(configPath))) {
     try {
@@ -14,7 +15,7 @@ export function loadConfig(): HookGuardConfig {
         ...config,
         rules: {
           ...defaultConfig.rules,
-          ...config.rules,
+          ...config?.rules,
         },
       };
     } catch (err) {
@@ -32,8 +33,8 @@ export function loadConfig(): HookGuardConfig {
 export function copyDefaultConfig(destinationPath?: string): void {
   try {
     const sourcePath = path.resolve(
-      process.cwd() + "/src/config/",
-      "defaultConfig.ts"
+      __dirname,
+      "../../src/config/defaultConfig.ts"
     );
 
     if (!fs.existsSync(sourcePath)) {
@@ -43,7 +44,7 @@ export function copyDefaultConfig(destinationPath?: string): void {
 
     let targetPath = destinationPath
       ? path.resolve(process.cwd(), destinationPath)
-      : sourcePath;
+      : path.resolve(process.cwd());
 
     targetPath += "/src/hookguard.config.ts";
 

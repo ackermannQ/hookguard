@@ -53,9 +53,9 @@ program
   });
 
 program
-  .command("init .")
+  .command("init [currentDir]")
   .description("Initialize default hookguard.config.ts")
-  .action((path?: string) => copyDefaultConfig(path));
+  .action(copyDefaultConfig);
 
 program.showHelpAfterError();
 program.parse(process.argv);
