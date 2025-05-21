@@ -11,7 +11,11 @@
     "declaration": true,
     "declarationDir": "./dist",
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": ".", // This is important
+    "paths": {
+      "@rules/*": ["src/rules/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["dist", "src/tests"]

@@ -1,6 +1,6 @@
 {
   "name": "hookguard",
-  "version": "1.1.9",
+  "version": "1.1.12",
   "bin": {
     "hookguard": "./dist/src/cli/index.js"
   },
@@ -17,9 +17,11 @@
     "dev": "npx ts-node ./src/cli/index.ts scan ",
     "dev-report": "npx ts-node ./src/cli/index.ts report ",
     "dev-diff": "npx ts-node ./src/cli/index.ts diff ",
+    "dev-init": "npx ts-node ./src/cli/index.ts init ",
     "scan": "hookguard scan ",
     "report": "hookguard report ",
     "diff": "hookguard diff ",
+    "config": "hookguard init ",
     "build": "tsc",
     "test": "test"
   },
@@ -27,7 +29,8 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^13.1.0",
-    "ts-morph": "^25.0.1"
+    "ts-morph": "^25.0.1",
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

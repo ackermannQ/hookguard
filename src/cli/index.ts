@@ -9,6 +9,7 @@ import { program } from "commander";
 import { version } from "./../../package.json";
 import { printHeader } from "../misc/hookWisdom";
 import diffReports from "../diff";
+import { copyDefaultConfig } from "../config/loadConfig";
 
 program
   .name("hookguard")
@@ -50,6 +51,11 @@ program
   .action((oldReportPath: string, newReportPath: string) => {
     diffReports(oldReportPath, newReportPath);
   });
+
+program
+  .command("init .")
+  .description("Initialize default hookguard.config.ts")
+  .action((path?: string) => copyDefaultConfig(path));
 
 program.showHelpAfterError();
 program.parse(process.argv);

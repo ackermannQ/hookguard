@@ -106,6 +106,8 @@ Run `hookguard report <reportFile>` to print a summary of the scan results.
 
 You can customize HookGuard's behavior by creating a `hookguard.config.ts` file in the root of your project.
 
+Use `hookguard init .` to generate a default configuration file.
+
 This configuration file allows you to:
 
 - Enable or disable specific rules
